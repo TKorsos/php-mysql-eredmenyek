@@ -16,15 +16,16 @@ $orszag_id = $_GET["id"];
 <body class="text-bg-dark">
     <header class="container-lg">
         <div class="row">
-            <div class="col-1">Foci</div>
-            <div class="col-1">EURÓPA</div>
+            <!-- Foci szöveg php-ból attól függően mely sportról van szó -->
+            <div class="col-1 text-uppercase">Foci</div>
+            <div class="col-auto text-uppercase"><?php echo $this->orszag($orszag_id)["kontinens"]; ?></div>
         </div>
         <div class="row border-top border-bottom">
             <div class="col-auto align-content-center">
                 <?php echo '<img src="./assets/imgs/flags/'.$orszag_id.'.png">'; ?>
             </div>
             <div class="col-auto align-content-center">
-                <?php echo $this->orszag($orszag_id)["orszag"] ?>
+                <?php echo $this->orszag($orszag_id)["orszag"]; ?>
             </div>
             <div class="col-1 align-content-center">Kedvencek közé</div>
         </div>
@@ -63,21 +64,51 @@ $orszag_id = $_GET["id"];
                         <div class="d-flex justify-content-between">
                             <div class="d-flex flex-column">';
                                 if($data["hazai_gol"] > $data["vendeg_gol"]) {
-                                    echo '<div><span class="fw-bold">'.$this->orszag($data["hazai_id"])["orszag"].'</span></div>
-                                    <div>'.$this->orszag($data["vendeg_id"])["orszag"].'</div>';
+                                    echo '<div class="d-flex gap-2 align-items-center">
+                                            <img src="./assets/imgs/flags/'.$data["hazai_id"].'.png" width="30px">
+                                            <div>
+                                                <span class="fw-bold">'.$this->orszag($data["hazai_id"])["orszag"].'</span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex gap-2 align-items-center">
+                                            <img src="./assets/imgs/flags/'.$data["vendeg_id"].'.png" width="30px">
+                                            <div>'
+                                                .$this->orszag($data["vendeg_id"])["orszag"].
+                                            '</div>
+                                        </div>';
                                 }
                                 elseif($data["hazai_gol"] < $data["vendeg_gol"]) {
-                                    echo '<div>'.$this->orszag($data["hazai_id"])["orszag"].'</div>
-                                    <div><span class="fw-bold">'.$this->orszag($data["vendeg_id"])["orszag"].'</span></div>';
+                                    echo '<div class="d-flex gap-2 align-items-center">
+                                            <img src="./assets/imgs/flags/'.$data["hazai_id"].'.png" width="30px">
+                                            <div>'
+                                                .$this->orszag($data["hazai_id"])["orszag"].
+                                            '</div>
+                                        </div>
+                                        <div class="d-flex gap-2 align-items-center">
+                                            <img src="./assets/imgs/flags/'.$data["vendeg_id"].'.png" width="30px">
+                                            <div>
+                                                <span class="fw-bold">'.$this->orszag($data["vendeg_id"])["orszag"].'</span>
+                                            </div>
+                                        </div>';
                                 }
                                 else {
-                                    echo '<div>'.$this->orszag($data["hazai_id"])["orszag"].'</div>
-                                    <div>'.$this->orszag($data["vendeg_id"])["orszag"].'</div>';
+                                    echo '<div class="d-flex gap-2 align-items-center">
+                                            <img src="./assets/imgs/flags/'.$data["hazai_id"].'.png" width="30px">
+                                            <div>'
+                                                .$this->orszag($data["hazai_id"])["orszag"].
+                                            '</div>
+                                        </div>
+                                        <div class="d-flex gap-2 align-items-center">
+                                            <img src="./assets/imgs/flags/'.$data["vendeg_id"].'.png" width="30px">
+                                            <div>'
+                                                .$this->orszag($data["vendeg_id"])["orszag"].
+                                            '</div>
+                                        </div>';
                                 }
                                 echo '</div>
-                                <div class="d-flex flex-column">
+                                <div class="d-flex flex-column justify-content-center">
                                     <div>'.$data["hazai_gol"].'</div>
-                                    <div>'.$data["vendeg_gol"].'</div>    
+                                    <div>'.$data["vendeg_gol"].'</div>
                             </div>
                         </div>
                     </article>
