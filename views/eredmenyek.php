@@ -16,7 +16,7 @@ $orszag_id = $_GET["id"];
 <body class="text-bg-dark">
     <header class="container-lg">
         <div class="row">
-            <!-- Foci szöveg php-ból attól függően mely sportról van szó -->
+            <!-- sport megnevezés php-ból attól függően mely sportról van szó -->
             <div class="col-1 text-uppercase">Foci</div>
             <div class="col-auto text-uppercase"><?php echo $this->orszag($orszag_id)["kontinens"]; ?></div>
         </div>
@@ -59,7 +59,15 @@ $orszag_id = $_GET["id"];
         echo '
             <a class="link-light link-underline-opacity-0" href="?page=meccsView&orszagid='.$orszag_id.'&meccsid='.$data["id"].'" target="_blank">
                 <section class="row border-bottom">
-                    <article class="col-2 align-content-center">'.$data["datum"].'</article>
+                    <article class="col-2 align-content-center">
+                        '.$data["datum"];
+                        if($data["vegkimenetel_tipus"] == 1) {
+                            echo '<div title="Hosszabbítás után" class="text-truncate">Hosszabbítás után</div>';
+                        }
+                        else if($data["vegkimenetel_tipus"] == 2) {
+                            echo '<div title="Büntetők után" class="text-truncate">Büntetők után</div>';
+                        }
+                    echo '</article>
                     <article class="col">
                         <div class="d-flex justify-content-between">
                             <div class="d-flex flex-column">';
@@ -105,14 +113,36 @@ $orszag_id = $_GET["id"];
                                             '</div>
                                         </div>';
                                 }
-                                echo '</div>
-                                <div class="d-flex flex-column justify-content-center">
-                                    <div>'.$data["hazai_gol"].'</div>
-                                    <div>'.$data["vendeg_gol"].'</div>
-                            </div>
+                                echo '</div>';
+
+                                if($data["vegkimenetel_tipus"] != 0) {
+                                echo '<div class="d-flex align-content-center">
+                                        <div class="d-flex gap-5">    
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <div>'.$data["hosszabbitas_hazai"].'</div>
+                                                <div>'.$data["hosszabbitas_vendeg"].'</div>
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <div>'.$data["hazai_gol"].'</div>
+                                                <div>'.$data["vendeg_gol"].'</div>
+                                            </div>
+                                        </div>
+                                    </div>';
+                                }
+                                else {
+                                echo '<div class="d-flex align-content-center">
+                                        <div class="d-flex gap-5">    
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <div>'.$data["hazai_gol"].'</div>
+                                                <div>'.$data["vendeg_gol"].'</div>
+                                            </div>
+                                        </div>
+                                    </div>';
+                                }
+                            echo '</div>
                         </div>
                     </article>
-                    <article class="col-2 align-content-center">';
+                    <article class="col-1 align-content-center">';
                         /*
                             adott ország részéről kell tekinteni hogy GY, D vagy V
 
