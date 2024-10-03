@@ -10,6 +10,8 @@
 
 <body class="text-bg-dark">
 
+    <?php include("nav.php") ?>
+
     <main class="container-lg">
         <section class="row">
             <article class="col">

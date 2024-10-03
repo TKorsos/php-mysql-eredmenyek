@@ -16,6 +16,8 @@ $meccs_id = $_GET["meccsid"];
 
 <body class="text-bg-dark">
 
+<?php include("nav.php") ?>
+
 <main class="container-lg py-5 px-4">
     <?php
     foreach($this->eredmenyekProcess($orszag_id) as $key => $data) {
@@ -35,14 +37,18 @@ $meccs_id = $_GET["meccsid"];
                         if($data["vegkimenetel_tipus"] == 0) {
                             echo '<div class="d-flex flex-column justify-content-between align-items-center">
                                 <div>'.$data["datum"].'</div>
-                                <div>'.$data["hazai_gol"].' - '.$data["vendeg_gol"].'</div>
+                                <div>
+                                    <span class="fs-1">'.$data["hazai_gol"].' - '.$data["vendeg_gol"].'</span>
+                                </div>
                                 <div class="text-uppercase">Vége</div>
                             </div>';
                         }
                         else {
                             echo '<div class="d-flex flex-column justify-content-between align-items-center">
                                 <div>'.$data["datum"].'</div>
-                                <div>'.$data["hazai_gol"].' - '.$data["vendeg_gol"].'</div>
+                                <div>
+                                    <span class="fs-1">'.$data["hazai_gol"].' - '.$data["vendeg_gol"].'</span>
+                                </div>
                                 <div>('.$data["hosszabbitas_hazai"].' - '.$data["hosszabbitas_vendeg"].')</div>
                                 <div class="text-uppercase">'.($data["vegkimenetel_tipus"] == 1 ? "Hosszabbítás után" : "Büntetők után").'</div>
                             </div>';
