@@ -14,9 +14,13 @@ $orszag_id = $_GET["id"];
 </head>
 
 <body class="text-bg-dark">
+
+    <?php include("nav.php") ?>
+
     <header class="container-lg">
         <div class="row">
             <!-- sport megnevezés php-ból attól függően mely sportról van szó -->
+            <!-- jégkorong bevétele a példába -->
             <div class="col-1 text-uppercase">Foci</div>
             <div class="col-auto text-uppercase"><?php echo $this->orszag($orszag_id)["kontinens"]; ?></div>
         </div>
@@ -57,7 +61,7 @@ $orszag_id = $_GET["id"];
         }
 
         echo '
-            <a class="link-light link-underline-opacity-0" href="?page=meccsView&orszagid='.$orszag_id.'&meccsid='.$data["id"].'" target="_blank">
+            <a class="link-light link-underline-opacity-0" href="?page=meccsView&orszagid='.$orszag_id.'&meccsid='.$data["id"].'">
                 <section class="row border-bottom">
                     <article class="col-2 align-content-center">
                         '.$data["datum"];
@@ -148,15 +152,27 @@ $orszag_id = $_GET["id"];
 
                             feltételbe kell venni az adott országot és hogy a rúgott góljainak száma nagyobb-e vagy sem mint a másiké
                         */
+                        // if($data["vegkimenetel_tipus"] == 0) {
                             if($data["hazai_id"] == $orszag_id && $data["hazai_gol"] > $data["vendeg_gol"] || $data["vendeg_id"] == $orszag_id && $data["hazai_gol"] < $data["vendeg_gol"]) {
-                                echo '<span class="text-success">GY</span>';
+                                if($data["vegkimenetel_tipus"] == 0) {
+                                    echo '<span class="text-success">GY</span>';
+                                }
+                                else {
+                                    echo '<span class="text-success">D/GY</span>';
+                                }
                             }
                             elseif($data["hazai_id"] == $orszag_id && $data["hazai_gol"] < $data["vendeg_gol"] || $data["vendeg_id"] == $orszag_id && $data["hazai_gol"] > $data["vendeg_gol"]) {
-                                echo '<span class="text-danger">V</span>';
+                                if($data["vegkimenetel_tipus"] == 0) {
+                                    echo '<span class="text-danger">V</span>';
+                                }
+                                else {
+                                    echo '<span class="text-danger">D/V</span>';
+                                }
                             }
                             else {
                                 echo '<span class="text-warning">D</span>';
                             }
+                        // }
                 echo '</article>
                 </section>
             </a>
