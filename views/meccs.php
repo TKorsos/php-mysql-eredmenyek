@@ -31,13 +31,23 @@ $meccs_id = $_GET["meccsid"];
                             </span>
                         </a>
                     </article>
-                    <article class="col">
-                        <div class="d-flex flex-column justify-content-between align-items-center">
-                            <div>'.$data["datum"].'</div>
-                            <div>'.$data["hazai_gol"].' - '.$data["vendeg_gol"].'</div>
-                            <div>VÉGE</div>
-                        </div>
-                    </article>
+                    <article class="col">';
+                        if($data["vegkimenetel_tipus"] == 0) {
+                            echo '<div class="d-flex flex-column justify-content-between align-items-center">
+                                <div>'.$data["datum"].'</div>
+                                <div>'.$data["hazai_gol"].' - '.$data["vendeg_gol"].'</div>
+                                <div class="text-uppercase">Vége</div>
+                            </div>';
+                        }
+                        else {
+                            echo '<div class="d-flex flex-column justify-content-between align-items-center">
+                                <div>'.$data["datum"].'</div>
+                                <div>'.$data["hazai_gol"].' - '.$data["vendeg_gol"].'</div>
+                                <div>('.$data["hosszabbitas_hazai"].' - '.$data["hosszabbitas_vendeg"].')</div>
+                                <div class="text-uppercase">'.($data["vegkimenetel_tipus"] == 1 ? "Hosszabbítás után" : "Büntetők után").'</div>
+                            </div>';
+                        }
+                    echo '</article>
                     <article class="col-auto">
                         <a class="d-flex flex-column align-items-center link-light link-underline-opacity-0 link-underline-opacity-100-hover link-offset-2" href="?page=eredmenyekView&id='.$data["vendeg_id"].'">
                             <span>
